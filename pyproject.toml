@@ -1,0 +1,16 @@
+[project]
+name = "fac-camden-rag"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "asyncpg",
+    "openai",
+    "anthropic",
+    "pymupdf",
+    "tiktoken",
+    "python-dotenv",
+    "pandas",
+    "psutil",
+]

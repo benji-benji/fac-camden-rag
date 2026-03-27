@@ -13,4 +13,5 @@ dependencies = [
     "python-dotenv",
     "pandas",
     "psutil",
+    "streamlit>=1.55.0",
 ]

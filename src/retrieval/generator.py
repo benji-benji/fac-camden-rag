@@ -1,11 +1,16 @@
+import re
+
 import anthropic
 from dataclasses import dataclass
 
 client = anthropic.Anthropic()
+MODEL = "claude-sonnet-4-6"
+SOURCE_TAG = re.compile(r"\[SOURCE (\d+)\]")
 
 
 @dataclass
 class Citation:
+    source_number: int
     foi_reference: str
     title: str
     page_number: int
@@ -42,21 +47,29 @@ Sources:
 Answer with inline citations:"""
 
     message = client.messages.create(
-        model="claude-sonnet-4-6",
+        model=MODEL,
         max_tokens=1024,
         messages=[{"role": "user", "content": prompt}],
     )
 
     answer = message.content[0].text
 
+    # Only return sources the answer actually cites, in order of first mention.
+    cited_numbers = []
+    for match in SOURCE_TAG.finditer(answer):
+        n = int(match.group(1))
+        if 1 <= n <= len(results) and n not in cited_numbers:
+            cited_numbers.append(n)
+
     citations = [
         Citation(
-            foi_reference=r.foi_reference,
-            title=r.title,
-            page_number=r.page_number,
-            chunk_id=r.chunk_id,
+            source_number=n,
+            foi_reference=results[n - 1].foi_reference,
+            title=results[n - 1].title,
+            page_number=results[n - 1].page_number,
+            chunk_id=results[n - 1].chunk_id,
         )
-        for i, r in enumerate(results)
+        for n in cited_numbers
     ]
 
     return GeneratedAnswer(answer=answer, citations=citations, prompt_sent=prompt)

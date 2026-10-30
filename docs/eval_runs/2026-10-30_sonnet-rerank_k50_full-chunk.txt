@@ -1,0 +1,43 @@
+Running batch eval: 28 queries against http://localhost:8000
+Dataset: eval_data/hand_labelled_queries.csv, threshold=2.0, top_k=5
+
+[1/28] Did the council sell or lease any housing stock between the 1980s - 19
+[2/28] Does the council have a Microsoft Licensing Statement?
+[3/28] Does the council maintain a single source of truth with updated figure
+[4/28] Has the council compulsorarily ordered any purches of property owned b
+[5/28] Has the number of Asylum Seeker accomodation complaints gone up in the
+[6/28] Have the council declined any requests for developer contributions to 
+[7/28] How long on average do tenents wait for council housing repairs?
+[8/28] How many 16-24 years were evicted by parents in 2017-18?
+[9/28] How many unaccompanied asylum-seeking children went missing in 2023?
+[10/28] How much are landlords charged on average for housing related offences
+[11/28] How much does camden council pay for temporary accomodation in hotels?
+[12/28] How much does camden spend on agency staff on average per year?
+[13/28] Is the council legally required to release information regarding expir
+[14/28] Was there more or less than 10,000 incidents of car boot load size fly
+[15/28] What proof do you need to get a disabled badge if you can't walk ?
+[16/28] does camden council publish a digital strategy?
+[17/28] have the council met with concultants operating on behalf eg. Six-Till
+[18/28] how many children are housed in independent accomodation?
+[19/28] how many compensation payouts were made by council in 2016 re. pot hol
+[20/28] how many pupils are open to Elective Home Education?
+[21/28] how much are the councils pension funds worth ?
+[22/28] please tell me the exact expenses councillors claimed last year
+[23/28] what are staff turnover rates within the leaving care service for the 
+[24/28] what is the status of ASB Apprentice in camden council?
+[25/28] what is the value of demand notices issued in the context of Community
+[26/28] what training material is delivered in countering terrorism training w
+[27/28] which bank does the local authority bank with?
+[28/28] why does camden not release the exact postcodes of empty property?
+
+======================================================================
+Aggregate metrics over 28 queries
+======================================================================
+  MAP     0.823
+  MAR     0.768
+  NDCG@5  0.903
+  P@1     0.964
+  R@1     0.594
+  P@5     0.307
+  R@5     0.827
+  F1@5    0.428

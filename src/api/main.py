@@ -12,9 +12,11 @@ from pydantic import BaseModel
 load_dotenv()
 
 from src.ingestion.embedder import embed_texts
-from src.retrieval.generator import generate_answer
-from src.retrieval.reranker import rerank
+from src.retrieval.generator import MODEL as GENERATOR_MODEL, generate_answer
+from src.retrieval.reranker import MODEL as RERANKER_MODEL, rerank
 from src.retrieval.search import vector_search
+
+RETRIEVAL_TOP_K = 50  # candidates passed to the reranker
 
 pool: asyncpg.Pool | None = None
 
@@ -59,7 +61,7 @@ async def query(request: QueryRequest):
     results = await vector_search(
         embedding,
         pool,
-        top_k=50,
+        top_k=RETRIEVAL_TOP_K,
         date_from=request.date_from,
         date_to=request.date_to,
     )
@@ -100,11 +102,12 @@ async def query(request: QueryRequest):
     trace_payload = {
         "date_from": request.date_from.isoformat() if request.date_from else None,
         "date_to": request.date_to.isoformat() if request.date_to else None,
-        "retrieval_top_k": 20,
+        "retrieval_top_k": RETRIEVAL_TOP_K,
         "answer_top_k": request.top_k,
         "query_embedding": embedding,
         "retrieval_candidates": retrieval_trace,
-        "reranker_model": "claude-sonnet-4-6",
+        "reranker_model": RERANKER_MODEL,
+        "generator_model": GENERATOR_MODEL,
         "rerank_input_count": len(results),
         "rerank_output_count": len(reranked),
         "reranked_chunk_ids": [r.chunk_id for r in reranked],
@@ -122,13 +125,14 @@ async def query(request: QueryRequest):
             [c.chunk_id for c in answer.citations],
             answer.prompt_sent,
             answer.answer,
-            "claude-sonnet-4-6",
+            GENERATOR_MODEL,
         )
 
     return QueryResponse(
         answer=answer.answer,
         citations=[
             {
+                "source_number": c.source_number,
                 "foi_reference": c.foi_reference,
                 "title": c.title,
                 "page_number": c.page_number,

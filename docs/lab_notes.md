@@ -197,3 +197,39 @@ Sonnet 5-10x more expensive than Haiku and ~2-3x slower per call. Worth it.
 **After:** key metric(s) after the change
 **Observations:** what surprised you / didn't work / caveats
 **Next:** what this unlocked or suggests trying next
+ ### 2026-10-30 13:14:46 — bug fixes + re-run (Sonnet reranker, top-k 50, full chunk text)
+
+**Change:**
+- Reranker now sees full chunk text (was first 400 characters of each chunk)
+- Citations now only include sources the answer cites with [SOURCE N] (was every reranked chunk)
+- Trace logs the real retrieval top-k (50; was hard-coded as 20) and both model names
+- `requests` added to dependencies
+
+**Config:** 1,040 FOIs / 3,171 chunks, text-embedding-3-small, vector search top-k 50, reranker claude-sonnet-4-6 (full chunk), rerank top-k 5, generator claude-sonnet-4-6. Eval: 28 hand-labelled queries, threshold 2, chunk-level. All 91 gold chunk IDs present in DB.
+
+**Before** (last recorded Sonnet run, top-k 20, 400-char reranker input):
+```
+  MAP     0.668
+  MAR     0.655
+  NDCG@5  0.730
+  P@1     0.750
+  R@1     0.467
+  P@5     0.279
+  R@5     0.744
+  F1@5    0.387
+```
+
+**After:**
+```
+  MAP     0.823
+  MAR     0.768
+  NDCG@5  0.903
+  P@1     0.964
+  R@1     0.594
+  P@5     0.307
+  R@5     0.827
+  F1@5    0.428
+```
+Run time 3 min 53 s for 28 queries (~8.3 s/query). 0 failed queries. Full output: `docs/eval_runs/2026-10-30_sonnet-rerank_k50_full-chunk.txt`.
+
+**Observations:** two things changed since the "before" run (top-k 20 → 50 and 400-char → full-chunk reranker input), so the gain can't be attributed to either alone.

@@ -2,6 +2,7 @@ import anthropic
 import json
 
 client = anthropic.Anthropic()
+MODEL = "claude-sonnet-4-6"
 
 
 def rerank(query: str, results: list, top_k: int = 5) -> list:
@@ -9,7 +10,7 @@ def rerank(query: str, results: list, top_k: int = 5) -> list:
         return results
 
     candidates = "\n\n".join(
-        f"[{i}] {r.content[:400]}" for i, r in enumerate(results)
+        f"[{i}] {r.content}" for i, r in enumerate(results)
     )
 
     prompt = f"""You are ranking search results for relevance to a query about Freedom of Information requests to Camden Council.
@@ -24,7 +25,7 @@ Return a JSON array of indices ordered from most to least relevant. Only include
 Return only the JSON array, nothing else."""
 
     message = client.messages.create(
-        model="claude-sonnet-4-6",
+        model=MODEL,
         max_tokens=256,
         messages=[{"role": "user", "content": prompt}],
     )

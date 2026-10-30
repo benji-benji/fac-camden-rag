@@ -14,7 +14,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DEFAULT_OUTPUT_PATH = Path("eval_data/synthetic_chunk_query_pairs.csv")
-DEFAULT_MODEL = "claude-sonnet-4-6"
+#DEFAULT_MODEL = "claude-sonnet-4-6"
+DEFAULT_MODEL = "claude-haiku-4-5-20251001"
 
 
 @dataclass

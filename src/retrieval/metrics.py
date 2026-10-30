@@ -23,6 +23,8 @@ class QueryEvalResult:
 
 def load_golden_dataset(csv_path: str | Path) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
+    if "query_text" not in df.columns and "query" in df.columns:
+        df = df.rename(columns={"query": "query_text"})
     required = {"query_text", "chunk_id", "relevance_score"}
     missing = required - set(df.columns)
     if missing:

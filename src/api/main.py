@@ -59,7 +59,7 @@ async def query(request: QueryRequest):
     results = await vector_search(
         embedding,
         pool,
-        top_k=20,
+        top_k=50,
         date_from=request.date_from,
         date_to=request.date_to,
     )
@@ -104,7 +104,7 @@ async def query(request: QueryRequest):
         "answer_top_k": request.top_k,
         "query_embedding": embedding,
         "retrieval_candidates": retrieval_trace,
-        "reranker_model": "claude-haiku-4-5-20251001",
+        "reranker_model": "claude-sonnet-4-6",
         "rerank_input_count": len(results),
         "rerank_output_count": len(reranked),
         "reranked_chunk_ids": [r.chunk_id for r in reranked],
@@ -187,8 +187,23 @@ For each row, return a dict. date and indexed_at are date/datetime objects — c
 
 '''
 
+@app.get("/stats")
+async def stats():
+    async with pool.acquire() as conn:
+        doc_count = await conn.fetchval("SELECT COUNT(*) FROM documents")
+        chunk_count = await conn.fetchval("SELECT COUNT(*) FROM chunks")
+        last_ingested = await conn.fetchval("SELECT MAX(indexed_at) FROM documents")
+        avg_tokens = await conn.fetchval("SELECT AVG(token_count) FROM chunks")
+    return {
+        "document_count": doc_count,
+        "chunk_count": chunk_count,
+        "last_ingested_at": last_ingested.isoformat() if last_ingested else None,
+        "avg_chunk_tokens": round(float(avg_tokens), 1) if avg_tokens else None,
+    }
+
+
 @app.get("/documents")
-async def list_documents(): 
+async def list_documents():
     async with pool.acquire() as conn:
         rows = await conn.fetch(
             """SELECT id, filename, foi_reference, date, title, total_pages, indexed_at

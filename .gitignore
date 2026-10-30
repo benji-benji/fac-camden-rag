@@ -1,1 +1,6 @@
 satyam_dashboard/
+.env
+__pycache__/
+.DS_Store
+*.npy
+.claude/

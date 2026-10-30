@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS chunks (
     page_number  INT NOT NULL,
     chunk_index  INT NOT NULL DEFAULT 0,
     content      TEXT NOT NULL,
+    content_tsv  tsvector GENERATED ALWAYS AS (to_tsvector('english', content)) STORED,
     embedding    VECTOR(1536),
     token_count  INT,
     created_at   TIMESTAMPTZ DEFAULT now()
@@ -24,6 +25,9 @@ CREATE TABLE IF NOT EXISTS chunks (
 
 CREATE INDEX IF NOT EXISTS chunks_embedding_idx
     ON chunks USING hnsw (embedding vector_cosine_ops);
+
+CREATE INDEX IF NOT EXISTS chunks_content_tsv_idx
+    ON chunks USING GIN (content_tsv);
 
 CREATE TABLE IF NOT EXISTS ingestion_log (
     filename     TEXT PRIMARY KEY,

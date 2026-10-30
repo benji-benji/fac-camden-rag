@@ -14,4 +14,6 @@ dependencies = [
     "pandas",
     "psutil",
     "streamlit>=1.55.0",
+    "tabulate>=0.10.0",
+    "sentence-transformers>=5.4.1",
 ]

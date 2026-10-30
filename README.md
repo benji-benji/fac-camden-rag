@@ -26,7 +26,7 @@ uv run python3 scripts/run_eval.py
 
 ## Pipeline
 
-![Pipeline: ingest builds a pgvector store; each question is embedded, searched, reranked and answered with citations](docs/diagrams/01_pipeline/pipeline_v7.svg)
+![Pipeline: ingest builds a pgvector store; each question is embedded, searched, reranked and answered with citations; the eval dashboard reads each trace](docs/diagrams/01_pipeline/pipeline_v8.svg)
 
 | Stage | What | File |
 |---|---|---|

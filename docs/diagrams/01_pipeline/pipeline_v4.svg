@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="408" viewBox="0 0 460 204" role="img" aria-label="Camden FOI RAG system: the FastAPI query path, the per-query trace in query_logs, the Streamlit dashboard, and the evaluation loop that scores 28 hand-labelled queries">
+  <style>
+    /* House style: BBK report diagrams (docs/alphaedit-chart-style-guide.md), accent swapped
+       from indigo #645AC6 to green #00703C; pale fills #CDEBD7 / #F1F7F3.
+       Colours are literal so the file renders standalone. */
+    .tk  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; fill: #161C22; }
+    .tm  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #97A5B3; }
+    .ts  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.2px; fill: #97A5B3; }
+    .tl  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; letter-spacing: .08em; fill: #97A5B3; }
+    .tw  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #FFFFFF; }
+    .twb { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; font-weight: 600; fill: #FFFFFF; }
+    .c   { text-anchor: middle; }
+    .r   { text-anchor: end; }
+    .box  { fill: #FFFFFF; stroke: #3B4652; stroke-width: 1; }
+    .p1   { fill: #CDEBD7; stroke: #3B4652; stroke-width: 1; }
+    .p2   { fill: #F1F7F3; stroke: #3B4652; stroke-width: 1; }
+    .acc  { fill: #00703C; stroke: #3B4652; stroke-width: 1; }
+    .boxd { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 3 2.5; }
+    .conn { fill: none; stroke: #97A5B3; stroke-width: 1; }
+    .dash { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 2.5 2.5; }
+  </style>
+  <defs>
+    <marker id="arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="4.5" markerHeight="4.5" orient="auto">
+      <path d="M0 0.6 L8 4 L0 7.4 Z" fill="#97A5B3"/>
+    </marker>
+  </defs>
+  <rect width="460" height="204" fill="#FFFFFF"/>
+  <rect class="box" x="6" y="22" width="70" height="30" rx="3"/>
+  <text class="tk" x="12" y="33">question</text>
+  <text class="tm" x="12" y="42.5">+ date range</text>
+  <rect class="box" x="88" y="22" width="70" height="30" rx="3"/>
+  <text class="tk" x="94" y="33">FastAPI</text>
+  <text class="tm" x="94" y="42.5">POST /query</text>
+  <line class="conn" x1="78" y1="37" x2="86" y2="37" marker-end="url(#arw)"/>
+  <rect class="boxd" x="170" y="8" width="212" height="56" rx="5"/>
+  <text class="tl" x="176" y="18">PIPELINE</text>
+  <rect class="box" x="176" y="24" width="46" height="30" rx="3"/>
+  <text class="tk" x="182" y="35">embed</text>
+  <text class="tm" x="182" y="44.5">3-small</text>
+  <rect class="box" x="228" y="24" width="46" height="30" rx="3"/>
+  <text class="tk" x="234" y="35">search</text>
+  <text class="tm" x="234" y="44.5">top 50</text>
+  <rect class="p1" x="280" y="24" width="46" height="30" rx="3"/>
+  <text class="tk" x="286" y="35">rerank</text>
+  <text class="tm" x="286" y="44.5">top 5</text>
+  <rect class="box" x="332" y="24" width="46" height="30" rx="3"/>
+  <text class="tk" x="338" y="35">generate</text>
+  <text class="tm" x="338" y="44.5">Sonnet</text>
+  <line class="conn" x1="223" y1="39" x2="227" y2="39" marker-end="url(#arw)"/>
+  <line class="conn" x1="275" y1="39" x2="279" y2="39" marker-end="url(#arw)"/>
+  <line class="conn" x1="327" y1="39" x2="331" y2="39" marker-end="url(#arw)"/>
+  <line class="conn" x1="160" y1="37" x2="168" y2="37" marker-end="url(#arw)"/>
+  <line class="conn" x1="384" y1="37" x2="390" y2="37" marker-end="url(#arw)"/>
+  <rect class="p1" x="392" y="22" width="62" height="30" rx="3"/>
+  <text class="tk" x="398" y="33">answer</text>
+  <text class="tm" x="398" y="42.5">cited</text>
+  <path class="dash" d="M276 66 L276 92" marker-end="url(#arw)"/>
+  <text class="ts" x="280" y="82">trace</text>
+  <rect class="p2" x="206" y="94" width="140" height="30" rx="3"/>
+  <text class="tk" x="212" y="105">query_logs</text>
+  <text class="tm" x="212" y="114.5">50 → 5, prompt, models</text>
+  <line class="conn" x1="348" y1="109" x2="366" y2="109" marker-end="url(#arw)"/>
+  <rect class="box" x="368" y="94" width="86" height="30" rx="3"/>
+  <text class="tk" x="374" y="105">dashboard</text>
+  <text class="tm" x="374" y="114.5">Streamlit, 4 tabs</text>
+  <text class="tl" x="6" y="152">EVAL LOOP</text>
+  <rect class="box" x="6" y="160" width="80" height="30" rx="3"/>
+  <text class="tk" x="12" y="171">gold labels</text>
+  <text class="tm" x="12" y="180.5">28 q · 91 rows</text>
+  <rect class="box" x="100" y="160" width="80" height="30" rx="3"/>
+  <text class="tk" x="106" y="171">run_eval.py</text>
+  <text class="tm" x="106" y="180.5">per query</text>
+  <rect class="box" x="194" y="160" width="80" height="30" rx="3"/>
+  <text class="tk" x="200" y="171">metrics.py</text>
+  <text class="tm" x="200" y="180.5">MAP, NDCG, P/R@k</text>
+  <line class="conn" x1="88" y1="175" x2="98" y2="175" marker-end="url(#arw)"/>
+  <line class="conn" x1="182" y1="175" x2="192" y2="175" marker-end="url(#arw)"/>
+  <line class="conn" x1="276" y1="175" x2="286" y2="175" marker-end="url(#arw)"/>
+  <rect class="acc" x="288" y="160" width="166" height="30" rx="3"/>
+  <text class="twb" x="294" y="171">MAP 0.823 · NDCG@5 0.903</text>
+  <text class="tw" x="294" y="180.5">P@1 0.964 · R@5 0.827</text>
+  <path class="conn" d="M130 158 L130 54" marker-end="url(#arw)"/>
+  <text class="ts" x="134" y="100">POST /query</text>
+  <text class="ts" x="134" y="108">× 28</text>
+  <path class="conn" d="M240 126 L240 142 L160 142 L160 158" marker-end="url(#arw)"/>
+  <text class="ts" x="164" y="138">GET /logs</text>
+</svg>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="248" viewBox="0 0 460 124" role="img" aria-label="Camden FOI RAG pipeline as seven steps with the source file for each: extract, chunk, embed, store, search, rerank, generate">
+  <style>
+    /* House style: BBK report diagrams (docs/alphaedit-chart-style-guide.md), accent swapped
+       from indigo #645AC6 to green #00703C; pale fills #CDEBD7 / #F1F7F3.
+       Colours are literal so the file renders standalone. */
+    .tk  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; fill: #161C22; }
+    .tm  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #97A5B3; }
+    .ts  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.2px; fill: #97A5B3; }
+    .tl  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; letter-spacing: .08em; fill: #97A5B3; }
+    .tw  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #FFFFFF; }
+    .twb { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; font-weight: 600; fill: #FFFFFF; }
+    .c   { text-anchor: middle; }
+    .r   { text-anchor: end; }
+    .box  { fill: #FFFFFF; stroke: #3B4652; stroke-width: 1; }
+    .p1   { fill: #CDEBD7; stroke: #3B4652; stroke-width: 1; }
+    .p2   { fill: #F1F7F3; stroke: #3B4652; stroke-width: 1; }
+    .acc  { fill: #00703C; stroke: #3B4652; stroke-width: 1; }
+    .boxd { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 3 2.5; }
+    .conn { fill: none; stroke: #97A5B3; stroke-width: 1; }
+    .dash { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 2.5 2.5; }
+  </style>
+  <defs>
+    <marker id="arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="4.5" markerHeight="4.5" orient="auto">
+      <path d="M0 0.6 L8 4 L0 7.4 Z" fill="#97A5B3"/>
+    </marker>
+  </defs>
+  <rect width="460" height="124" fill="#FFFFFF"/>
+  <path class="conn" d="M10 25 L10 20 L258 20 L258 25"/>
+  <text class="tl" x="10" y="14">ONCE PER CORPUS · 1,040 PDFS</text>
+  <path class="conn" d="M266 25 L266 20 L450 20 L450 25"/>
+  <text class="tl" x="266" y="14">PER QUERY</text>
+  <rect class="box" x="10" y="30" width="56" height="30" rx="3"/>
+  <text class="tk c" x="38.0" y="41">extract</text>
+  <text class="tm c" x="38.0" y="50.5">PyMuPDF</text>
+  <text class="ts c" x="38" y="71">extractor.py</text>
+  <rect class="box" x="74" y="30" width="56" height="30" rx="3"/>
+  <text class="tk c" x="102.0" y="41">chunk</text>
+  <text class="tm c" x="102.0" y="50.5">≤ 800 tok</text>
+  <text class="ts c" x="102" y="71">chunker.py</text>
+  <rect class="box" x="138" y="30" width="56" height="30" rx="3"/>
+  <text class="tk c" x="166.0" y="41">embed</text>
+  <text class="tm c" x="166.0" y="50.5">1,536-d</text>
+  <text class="ts c" x="166" y="71">embedder.py</text>
+  <rect class="p2" x="202" y="30" width="56" height="30" rx="3"/>
+  <text class="tk c" x="230.0" y="41">store</text>
+  <text class="tm c" x="230.0" y="50.5">pgvector</text>
+  <text class="ts c" x="230" y="71">schema.sql</text>
+  <rect class="box" x="266" y="30" width="56" height="30" rx="3"/>
+  <text class="tk c" x="294.0" y="41">search</text>
+  <text class="tm c" x="294.0" y="50.5">top 50</text>
+  <text class="ts c" x="294" y="71">search.py</text>
+  <rect class="acc" x="330" y="30" width="56" height="30" rx="3"/>
+  <text class="twb c" x="358.0" y="41">rerank</text>
+  <text class="tw c" x="358.0" y="50.5">top 5</text>
+  <text class="ts c" x="358" y="71">reranker.py</text>
+  <rect class="box" x="394" y="30" width="56" height="30" rx="3"/>
+  <text class="tk c" x="422.0" y="41">generate</text>
+  <text class="tm c" x="422.0" y="50.5">Sonnet 4.6</text>
+  <text class="ts c" x="422" y="71">generator.py</text>
+  <line class="conn" x1="67" y1="45" x2="73" y2="45" marker-end="url(#arw)"/>
+  <line class="conn" x1="131" y1="45" x2="137" y2="45" marker-end="url(#arw)"/>
+  <line class="conn" x1="195" y1="45" x2="201" y2="45" marker-end="url(#arw)"/>
+  <line class="conn" x1="259" y1="45" x2="265" y2="45" marker-end="url(#arw)"/>
+  <line class="conn" x1="323" y1="45" x2="329" y2="45" marker-end="url(#arw)"/>
+  <line class="conn" x1="387" y1="45" x2="393" y2="45" marker-end="url(#arw)"/>
+  <path class="conn" d="M10 78 L10 83 L258 83 L258 78"/>
+  <text class="tm c" x="134" y="93">src/ingestion/</text>
+  <path class="conn" d="M266 78 L266 83 L450 83 L450 78"/>
+  <text class="tm c" x="358" y="93">src/retrieval/ · src/api/main.py</text>
+  <text class="tm" x="10" y="114">eval · 28 hand-labelled queries · MAP 0.823 · NDCG@5 0.903 · P@1 0.964</text>
+</svg>

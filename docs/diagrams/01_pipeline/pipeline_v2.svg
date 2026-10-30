@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="368" viewBox="0 0 460 184" role="img" aria-label="Camden FOI RAG pipeline as a narrowing: 1,040 PDFs become 3,171 chunks; vector search keeps 50, the Sonnet reranker keeps 5, and the generator answers citing only the sources it uses">
+  <style>
+    /* House style: BBK report diagrams (docs/alphaedit-chart-style-guide.md), accent swapped
+       from indigo #645AC6 to green #00703C; pale fills #CDEBD7 / #F1F7F3.
+       Colours are literal so the file renders standalone. */
+    .tk  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; fill: #161C22; }
+    .tm  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #97A5B3; }
+    .ts  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.2px; fill: #97A5B3; }
+    .tl  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; letter-spacing: .08em; fill: #97A5B3; }
+    .tw  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #FFFFFF; }
+    .twb { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; font-weight: 600; fill: #FFFFFF; }
+    .c   { text-anchor: middle; }
+    .r   { text-anchor: end; }
+    .box  { fill: #FFFFFF; stroke: #3B4652; stroke-width: 1; }
+    .p1   { fill: #CDEBD7; stroke: #3B4652; stroke-width: 1; }
+    .p2   { fill: #F1F7F3; stroke: #3B4652; stroke-width: 1; }
+    .acc  { fill: #00703C; stroke: #3B4652; stroke-width: 1; }
+    .boxd { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 3 2.5; }
+    .conn { fill: none; stroke: #97A5B3; stroke-width: 1; }
+    .dash { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 2.5 2.5; }
+  </style>
+  <defs>
+    <marker id="arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="4.5" markerHeight="4.5" orient="auto">
+      <path d="M0 0.6 L8 4 L0 7.4 Z" fill="#97A5B3"/>
+    </marker>
+  </defs>
+  <rect width="460" height="184" fill="#FFFFFF"/>
+  <text class="tl" x="6" y="12">FROM CORPUS TO ANSWER · BAR LENGTH ON LOG SCALE</text>
+  <text class="tk" x="6" y="27">FOI PDFs</text>
+  <text class="tm" x="6" y="36">PyMuPDF + CSV</text>
+  <rect class="boxd" x="120" y="20" width="286.1" height="18" rx="2"/>
+  <text class="tk r" x="401.1" y="31.5">n = 1,040 documents</text>
+  <text class="tk" x="6" y="55">chunk + embed</text>
+  <text class="tm" x="6" y="64">≤ 800 tok, 3-small</text>
+  <rect class="p2" x="120" y="48" width="332.0" height="18" rx="2"/>
+  <text class="tk r" x="447.0" y="59.5">n = 3,171 chunks</text>
+  <text class="tk" x="6" y="83">vector search</text>
+  <text class="tm" x="6" y="92">cosine, pgvector</text>
+  <rect class="p1" x="120" y="76" width="161.1" height="18" rx="2"/>
+  <text class="tk r" x="276.1" y="87.5">n = 50</text>
+  <text class="tk" x="6" y="111">rerank</text>
+  <text class="tm" x="6" y="120">Claude Sonnet 4.6</text>
+  <rect class="acc" x="120" y="104" width="66.3" height="18" rx="2"/>
+  <text class="tw r" x="181.3" y="115.5">n = 5</text>
+  <text class="tk" x="6" y="139">generate</text>
+  <text class="tm" x="6" y="148">Claude Sonnet 4.6</text>
+  <rect class="p1" x="120" y="132" width="110" height="30" rx="3"/>
+  <text class="tk" x="126" y="143">answer</text>
+  <text class="tm" x="126" y="152.5">cites only what it uses</text>
+  <text class="tm" x="238" y="146">+ full trace → query_logs</text>
+  <path class="conn" d="M112 26 L112 140" marker-end="url(#arw)"/>
+  <text class="tm" x="6" y="176">eval · 28 hand-labelled queries · MAP 0.823 · NDCG@5 0.903 · R@5 0.827</text>
+</svg>

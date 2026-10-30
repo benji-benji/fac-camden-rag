@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="600" viewBox="0 0 460 300" role="img" aria-label="Camden FOI RAG pipeline as two columns read bottom to top: ingest builds the pgvector store, the query column searches it, reranks and generates the answer at the top">
+  <style>
+    /* House style: BBK report diagrams (docs/alphaedit-chart-style-guide.md), accent swapped
+       from indigo #645AC6 to green #00703C; pale fills #CDEBD7 / #F1F7F3.
+       Colours are literal so the file renders standalone. */
+    .tk  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; fill: #161C22; }
+    .tm  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #97A5B3; }
+    .ts  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.2px; fill: #97A5B3; }
+    .tl  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; letter-spacing: .08em; fill: #97A5B3; }
+    .tw  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #FFFFFF; }
+    .twb { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; font-weight: 600; fill: #FFFFFF; }
+    .c   { text-anchor: middle; }
+    .r   { text-anchor: end; }
+    .box  { fill: #FFFFFF; stroke: #3B4652; stroke-width: 1; }
+    .p1   { fill: #CDEBD7; stroke: #3B4652; stroke-width: 1; }
+    .p2   { fill: #F1F7F3; stroke: #3B4652; stroke-width: 1; }
+    .acc  { fill: #00703C; stroke: #3B4652; stroke-width: 1; }
+    .boxd { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 3 2.5; }
+    .conn { fill: none; stroke: #97A5B3; stroke-width: 1; }
+    .dash { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 2.5 2.5; }
+  </style>
+  <defs>
+    <marker id="arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="4.5" markerHeight="4.5" orient="auto">
+      <path d="M0 0.6 L8 4 L0 7.4 Z" fill="#97A5B3"/>
+    </marker>
+  </defs>
+  <rect width="460" height="300" fill="#FFFFFF"/>
+  <rect class="acc" x="160" y="12" width="140" height="36" rx="3"/>
+  <text class="twb c" x="230" y="27">answer</text>
+  <text class="tw c" x="230" y="39">[SOURCE N] citations</text>
+  <rect class="boxd" x="30" y="66" width="160" height="226" rx="5"/>
+  <text class="tl" x="38" y="78">INGEST · ONCE</text>
+  <rect class="boxd" x="270" y="66" width="160" height="226" rx="5"/>
+  <text class="tl" x="278" y="78">QUERY · PER REQUEST</text>
+  <rect class="box" x="50" y="248" width="120" height="30" rx="3"/>
+  <text class="tk" x="56" y="259">FOI PDFs</text>
+  <text class="tm" x="56" y="268.5">n = 1,040 + metadata CSV</text>
+  <rect class="box" x="50" y="208" width="120" height="22" rx="3"/>
+  <text class="tk" x="56" y="221.5">extract</text>
+  <text class="tm r" x="164" y="221.5">PyMuPDF</text>
+  <rect class="box" x="50" y="170" width="120" height="22" rx="3"/>
+  <text class="tk" x="56" y="183.5">chunk</text>
+  <text class="tm r" x="164" y="183.5">≤ 800 tokens</text>
+  <rect class="box" x="50" y="132" width="120" height="22" rx="3"/>
+  <text class="tk" x="56" y="145.5">embed</text>
+  <text class="tm r" x="164" y="145.5">3-small, 1,536-d</text>
+  <rect class="p2" x="50" y="86" width="120" height="30" rx="3"/>
+  <text class="tk" x="56" y="97">pgvector</text>
+  <text class="tm" x="56" y="106.5">n = 3,171 chunks · HNSW</text>
+  <line class="conn" x1="110" y1="248" x2="110" y2="232" marker-end="url(#arw)"/>
+  <line class="conn" x1="110" y1="208" x2="110" y2="194" marker-end="url(#arw)"/>
+  <line class="conn" x1="110" y1="170" x2="110" y2="156" marker-end="url(#arw)"/>
+  <line class="conn" x1="110" y1="132" x2="110" y2="118" marker-end="url(#arw)"/>
+  <rect class="box" x="290" y="248" width="120" height="30" rx="3"/>
+  <text class="tk" x="296" y="259">question</text>
+  <text class="tm" x="296" y="268.5">natural language</text>
+  <rect class="box" x="290" y="208" width="120" height="22" rx="3"/>
+  <text class="tk" x="296" y="221.5">embed</text>
+  <text class="tm r" x="404" y="221.5">same model</text>
+  <rect class="box" x="290" y="170" width="120" height="22" rx="3"/>
+  <text class="tk" x="296" y="183.5">search</text>
+  <text class="tm r" x="404" y="183.5">cosine, top 50</text>
+  <rect class="p1" x="290" y="132" width="120" height="22" rx="3"/>
+  <text class="tk" x="296" y="145.5">rerank</text>
+  <text class="tm r" x="404" y="145.5">Sonnet 4.6, top 5</text>
+  <rect class="box" x="290" y="92" width="120" height="22" rx="3"/>
+  <text class="tk" x="296" y="105.5">generate</text>
+  <text class="tm r" x="404" y="105.5">Sonnet 4.6</text>
+  <line class="conn" x1="350" y1="248" x2="350" y2="232" marker-end="url(#arw)"/>
+  <line class="conn" x1="350" y1="208" x2="350" y2="194" marker-end="url(#arw)"/>
+  <line class="conn" x1="350" y1="170" x2="350" y2="156" marker-end="url(#arw)"/>
+  <line class="conn" x1="350" y1="132" x2="350" y2="116" marker-end="url(#arw)"/>
+  <path class="conn" d="M172 101 L210 101 L210 181 L288 181" marker-end="url(#arw)"/>
+  <text class="ts" x="214" y="136">nearest</text>
+  <text class="ts" x="214" y="144">50 of</text>
+  <text class="ts" x="214" y="152">3,171</text>
+  <path class="conn" d="M395 92 L395 30 L302 30" marker-end="url(#arw)"/>
+  <text class="ts" x="399" y="60">top 5</text>
+</svg>

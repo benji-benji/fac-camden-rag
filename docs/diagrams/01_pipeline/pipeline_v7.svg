@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="656" height="386" viewBox="0 0 428 252" role="img" aria-label="Camden FOI RAG pipeline: ingest extracts, chunks and embeds 1,040 FOI PDFs into pgvector; each question is embedded with the same model, searched, reranked to 5 with Claude Sonnet 4.6, and answered by Sonnet 4.6 from a prompt plus the 5 sources">
+  <style>
+    /* House style: BBK report diagrams (docs/alphaedit-chart-style-guide.md), accent swapped
+       from indigo #645AC6 to green #00703C; pale fills #CDEBD7 / #F1F7F3.
+       Colours are literal so the file renders standalone. */
+    .tk  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; fill: #161C22; }
+    .tm  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #97A5B3; }
+    .ts  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.2px; fill: #97A5B3; }
+    .tl  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; letter-spacing: .08em; fill: #97A5B3; }
+    .tw  { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 6.6px; fill: #FFFFFF; }
+    .twb { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 7.4px; font-weight: 600; fill: #FFFFFF; }
+    .c   { text-anchor: middle; }
+    .r   { text-anchor: end; }
+    .box  { fill: #FFFFFF; stroke: #3B4652; stroke-width: 1; }
+    .p1   { fill: #CDEBD7; stroke: #3B4652; stroke-width: 1; }
+    .p2   { fill: #F1F7F3; stroke: #3B4652; stroke-width: 1; }
+    .acc  { fill: #00703C; stroke: #3B4652; stroke-width: 1; }
+    .boxd { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 3 2.5; }
+    .conn { fill: none; stroke: #97A5B3; stroke-width: 1; }
+    .dash { fill: none; stroke: #97A5B3; stroke-width: 1; stroke-dasharray: 2.5 2.5; }
+  </style>
+  <defs>
+    <marker id="arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="4.5" markerHeight="4.5" orient="auto">
+      <path d="M0 0.6 L8 4 L0 7.4 Z" fill="#97A5B3"/>
+    </marker>
+  </defs>
+  <rect width="428" height="252" fill="#FFFFFF"/>
+  <text class="tl" x="3" y="13">INGEST · ONCE PER CORPUS</text>
+  <rect class="box" x="3" y="20" width="78" height="32" rx="3"/>
+  <text class="tk" x="9" y="31">FOI PDFs</text>
+  <text class="tm" x="9" y="40.5">n = 1,040</text>
+  <text class="tm" x="9" y="48.5">+ metadata CSV</text>
+  <rect class="box" x="89" y="20" width="78" height="32" rx="3"/>
+  <text class="tk" x="95" y="31">extract</text>
+  <text class="tm" x="95" y="40.5">PyMuPDF</text>
+  <text class="tm" x="95" y="48.5">per page</text>
+  <rect class="box" x="175" y="20" width="78" height="32" rx="3"/>
+  <text class="tk" x="181" y="31">chunk</text>
+  <text class="tm" x="181" y="40.5">≤ 800 tokens</text>
+  <text class="tm" x="181" y="48.5">by sentence</text>
+  <line class="conn" x1="83" y1="36" x2="87" y2="36" marker-end="url(#arw)"/>
+  <line class="conn" x1="169" y1="36" x2="173" y2="36" marker-end="url(#arw)"/>
+  <rect class="box" x="261" y="20" width="78" height="86" rx="3"/>
+  <text class="tk" x="267" y="57.0">embed</text>
+  <text class="tm" x="267" y="66.5">OpenAI 3-small</text>
+  <text class="tm" x="267" y="74.5">1,536-d</text>
+  <line class="conn" x1="255" y1="36" x2="259" y2="36" marker-end="url(#arw)"/>
+  <line class="conn" x1="341" y1="36" x2="345" y2="36" marker-end="url(#arw)"/>
+  <rect class="p2" x="347" y="20" width="78" height="32" rx="3"/>
+  <text class="tk" x="353" y="31">pgvector</text>
+  <text class="tm" x="353" y="40.5">3,171 chunks</text>
+  <text class="tm" x="353" y="48.5">HNSW, cosine</text>
+  <text class="tl r" x="167" y="92.5">QUERY · PER REQUEST</text>
+  <rect class="box" x="175" y="74" width="78" height="32" rx="3"/>
+  <text class="tk" x="181" y="85">question</text>
+  <text class="tm" x="181" y="94.5">free text</text>
+  <text class="tm" x="181" y="102.5">+ date range</text>
+  <line class="conn" x1="255" y1="90" x2="259" y2="90" marker-end="url(#arw)"/>
+  <line class="conn" x1="341" y1="90" x2="345" y2="90" marker-end="url(#arw)"/>
+  <line class="conn" x1="386.0" y1="54" x2="386.0" y2="72" marker-end="url(#arw)"/>
+  <rect class="box" x="347" y="74" width="78" height="32" rx="3"/>
+  <text class="tk" x="353" y="85">search</text>
+  <text class="tm" x="353" y="94.5">cosine</text>
+  <text class="tm" x="353" y="102.5">top 50 of 3,171</text>
+  <line class="conn" x1="386.0" y1="108" x2="386.0" y2="118" marker-end="url(#arw)"/>
+  <rect class="acc" x="347" y="120" width="78" height="32" rx="3"/>
+  <text class="twb" x="353" y="131">rerank</text>
+  <text class="tw" x="353" y="140.5">Sonnet 4.6</text>
+  <text class="tw" x="353" y="148.5">keep top 5</text>
+  <line class="conn" x1="386.0" y1="154" x2="386.0" y2="164" marker-end="url(#arw)"/>
+  <rect class="box" x="347" y="166" width="78" height="32" rx="3"/>
+  <text class="tk" x="353" y="177">generate</text>
+  <text class="tm" x="353" y="186.5">Sonnet 4.6</text>
+  <text class="tm" x="353" y="194.5">prompt + sources</text>
+  <line class="conn" x1="386.0" y1="200" x2="386.0" y2="210" marker-end="url(#arw)"/>
+  <rect class="p1" x="347" y="212" width="78" height="32" rx="3"/>
+  <text class="tk" x="353" y="223">answer</text>
+  <text class="tm" x="353" y="232.5">cited sources</text>
+  <text class="tm" x="353" y="240.5">trace logged</text>
+</svg>

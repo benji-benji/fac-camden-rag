@@ -2,12 +2,15 @@
 
 A RAG system with eval dashboard. 
 
-A tool for earching Freedom of Information (FOI) responses. Trained on real requests ( publically available) with hand written golden dataset, and a dashboard to evaluate performance. 
+A tool for searching Freedom of Information (FOI) responses. Trained on real requests/responses (publically available at: url) 
+Hand labled golden dataset, and a dashboard to evaluate performance. 
 
 User Input: natural-language question (+ optional date range)
 Output: answer with inline [SOURCE N] citations + list of cited FOI references, titles, page numbers, chunk IDs
 
 Every query is logged to Postgres with a full trace (retrieval candidates, reranked candidates, prompt, response, models)
+
+Eval dashboard allows you to enter search, see whats surfaced with cosine scores, then precision/recall/F1
 
 ## To run
 ```
@@ -22,6 +25,9 @@ uv run python3 scripts/run_eval.py
 
 
 ## Pipeline
+
+![Pipeline: ingest builds a pgvector store; each question is embedded, searched, reranked and answered with citations](docs/diagrams/01_pipeline/pipeline_v7.svg)
+
 | Stage | What | File |
 |---|---|---|
 | Extract | PyMuPDF, page-level text, empty pages dropped | `src/ingestion/extractor.py` |

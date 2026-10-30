@@ -2,14 +2,15 @@
 
 A RAG system with eval dashboard. 
 
-A tool for searching Freedom of Information (FOI) responses. Trained on real requests/responses (publically available at: url) 
+## Overview 
+
+A tool for searching Freedom of Information (FOI) responses. Trained on real requests/responses (publically available at: [url](https://opendata.camden.gov.uk/d/fkj6-gqb4)) 
 Hand labled golden dataset, and a dashboard to evaluate performance. 
 
-User Input: natural-language question (+ optional date range)
-Output: answer with inline [SOURCE N] citations + list of cited FOI references, titles, page numbers, chunk IDs
+- User Input: natural-language question (+ optional date range)
+- Output: answer with inline [SOURCE N] citations + list of cited FOI references, titles, page numbers, chunk IDs
 
 Every query is logged to Postgres with a full trace (retrieval candidates, reranked candidates, prompt, response, models)
-
 Eval dashboard allows you to enter search, see whats surfaced with cosine scores, then precision/recall/F1
 
 ## To run
